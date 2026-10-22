@@ -103,6 +103,38 @@ function bindButtons() {
     return { ip: s, port: window.__testPeerPort };
   }
 
+  // ---- 麦克风电平条 ----
+  let micMeterRAF = 0, micMeterCtx = null;
+  function startMicMeter() {
+    stopMicMeter();
+    try {
+      const stream = media.localStream;
+      if (!stream || !stream.getAudioTracks().length) return;
+      micMeterCtx = new (window.AudioContext || window.webkitAudioContext)();
+      const src = micMeterCtx.createMediaStreamSource(stream);
+      const analyser = micMeterCtx.createAnalyser();
+      analyser.fftSize = 512;
+      src.connect(analyser);
+      const data = new Uint8Array(analyser.frequencyBinCount);
+      const bar = $('micLevel');
+      const tick = () => {
+        analyser.getByteFrequencyData(data);
+        let sum = 0;
+        for (let i = 0; i < data.length; i++) sum += data[i];
+        const lvl = Math.min(100, Math.round(sum / data.length / 2.55 * 4));
+        if (bar) bar.style.width = lvl + '%';
+        micMeterRAF = requestAnimationFrame(tick);
+      };
+      tick();
+    } catch { stopMicMeter(); }
+  }
+  function stopMicMeter() {
+    if (micMeterRAF) { cancelAnimationFrame(micMeterRAF); micMeterRAF = 0; }
+    if (micMeterCtx) { micMeterCtx.close().catch(() => {}); micMeterCtx = null; }
+    const bar = $('micLevel');
+    if (bar) bar.style.width = '0%';
+  }
+
   // ---- 音视频设备列表 ----
   async function refreshDevices() {
     try {
@@ -129,7 +161,7 @@ function bindButtons() {
       const ctx = new (window.AudioContext || window.webkitAudioContext)();
       const o = ctx.createOscillator(), g = ctx.createGain();
       o.connect(g); g.connect(ctx.destination);
-      o.frequency.value = 880; g.gain.value = 0.15;
+      o.frequency.value = 880; g.gain.value = 0.3;
       o.start(); o.stop(ctx.currentTime + 0.4);
       o.onended = () => ctx.close();
       toast('已播放测试音，能听到说明扬声器正常');
@@ -183,6 +215,7 @@ function bindButtons() {
       const local = await media.ensureLocalStream();
       $('localVideo').srcObject = local;
       refreshDevices();
+      startMicMeter();
       setStatus(`正在呼叫 ${raw}…`);
       callState = 'dialing';
       $('callControls').classList.remove('hidden');
@@ -203,6 +236,7 @@ function bindButtons() {
       const local = await media.ensureLocalStream();
       $('localVideo').srcObject = local;
       refreshDevices();
+      startMicMeter();
       if (!media.videoAvailable) toast('摄像头不可用，已切换为纯音频通话', 4000);
       const answerSdp = await media.handleOffer(window._incomingSdp);
       await invoke('answer', answerSdp);
@@ -258,6 +292,7 @@ function wireMediaCallbacks() {
 }
 
 function endUiCall() {
+  stopMicMeter();
   media.close();
   $('localVideo').srcObject = null;
   $('remoteVideo').srcObject = null;

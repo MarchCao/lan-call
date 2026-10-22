@@ -31,6 +31,8 @@ input { flex: 1; padding: 9px 12px; border: 1px solid var(--line); border-radius
 .btn-row { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
 .hint { font-size: 13px; color: var(--muted); line-height: 1.6; }
 .ips { display: flex; gap: 8px; flex-wrap: wrap; }
+.meter { flex: 1; height: 14px; background: #e5e7eb; border-radius: 7px; overflow: hidden; min-width: 120px; }
+.meter > div { height: 100%; width: 0%; background: linear-gradient(90deg, #22c55e, #eab308 70%, #ef4444); transition: width 80ms; }
 .ips code { background: #eef2ff; color: #3730a3; padding: 4px 10px; border-radius: 6px; font-size: 13px; }
 .pair-code { text-align: center; margin: 12px 0; padding: 14px; background: #f0fdf4; border: 1px dashed var(--ok); border-radius: 10px; }
 .pair-code .code { font-size: 40px; font-weight: 800; letter-spacing: 12px; color: var(--ok); margin: 8px 0; font-family: ui-monospace, monospace; }
