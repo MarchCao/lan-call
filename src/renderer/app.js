@@ -149,6 +149,7 @@ function bindButtons() {
       callState = 'dialing';
       $('callControls').classList.remove('hidden');
       const offerSdp = await media.makeOffer();
+      if (!media.videoAvailable) toast('摄像头不可用，已切换为纯音频通话', 4000);
       await invoke('call', ip, offerSdp, port);
       wireMediaCallbacks();
     } catch (e) {
@@ -163,12 +164,13 @@ function bindButtons() {
       setStatus('正在打开摄像头/麦克风…');
       const local = await media.ensureLocalStream();
       $('localVideo').srcObject = local;
+      if (!media.videoAvailable) toast('摄像头不可用，已切换为纯音频通话', 4000);
       const answerSdp = await media.handleOffer(window._incomingSdp);
       await invoke('answer', answerSdp);
       callState = 'active';
       $('incomingBox').classList.add('hidden');
       $('callControls').classList.remove('hidden');
-      setStatus('通话中', 'live');
+      setStatus(media.videoAvailable ? '通话中' : '通话中（纯音频）', 'live');
       wireMediaCallbacks();
     } catch (e) {
       try { await invoke('reject', 'no-media'); } catch { /* ignore */ }

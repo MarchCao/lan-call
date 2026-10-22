@@ -19,6 +19,7 @@ class MediaSession {
   constructor() {
     this.pc = null;
     this.localStream = null;
+    this.videoAvailable = true; // 摄像头可用；被占用/不存在时降级为纯音频
     this.onIceCandidate = null; // (candidate) => void
     this.onRemoteStream = null; // (stream) => void
     this.onIceState = null;     // (state) => void
@@ -28,8 +29,20 @@ class MediaSession {
     if (this.localStream) return this.localStream;
     try {
       this.localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      this.videoAvailable = true;
     } catch (e) {
-      throw new Error(mediaErrorToChinese(e));
+      // 摄像头被占用或不存在 → 降级纯音频（单机双开、摄像头被其他软件占用、无摄像头场景）
+      const n = e && e.name;
+      if (n === 'NotReadableError' || n === 'NotFoundError' || n === 'OverconstrainedError') {
+        try {
+          this.localStream = await navigator.mediaDevices.getUserMedia({ video: false, audio: true });
+          this.videoAvailable = false;
+        } catch (e2) {
+          throw new Error(mediaErrorToChinese(e2));
+        }
+      } else {
+        throw new Error(mediaErrorToChinese(e));
+      }
     }
     return this.localStream;
   }
@@ -103,6 +116,7 @@ class MediaSession {
       }
     }
     this.localStream = null;
+    this.videoAvailable = true;
   }
 }
 
