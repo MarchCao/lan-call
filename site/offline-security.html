@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>离线安全说明｜LAN Call 局域网视频通话</title>
+<meta name="description" content="LAN Call 离线安全机制说明：无公网依赖、无账号无统计，X25519 ECDH 配对 + SAS 校验、AES-256-GCM 信令加密、DTLS-SRTP 媒体加密。">
+<link rel="canonical" href="https://lan-call.haice.top/offline-security.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"离线安全说明｜LAN Call","url":"https://lan-call.haice.top/offline-security.html","inLanguage":"zh-CN","isPartOf":{"@type":"WebSite","name":"LAN Call","url":"https://lan-call.haice.top/"},"publisher":{"@type":"Organization","name":"上海海策信息技术有限公司","email":"support@haicechina.com"}}
+</script>
+<style>
+:root{--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--primary:#2563eb;--bg:#f4f6f9}
+*{box-sizing:border-box}body{margin:0;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 60px}
+.nav{text-align:center;font-size:14px;margin-bottom:6px}
+.nav a{color:var(--primary);text-decoration:none;margin:0 10px}
+.nav a:hover{text-decoration:underline}
+h1{font-size:28px;text-align:center;margin:18px 0 6px}
+.sub{text-align:center;color:var(--muted);font-size:14px;margin-bottom:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin:18px 0}
+h2{font-size:19px;margin:0 0 10px}
+ul,ol{margin:8px 0;padding-left:22px;font-size:15px}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:30px;line-height:2}
+.foot a{color:var(--primary);text-decoration:none}
+.foot .nav{margin-bottom:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav">
+    <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
+  </div>
+  <h1>离线安全说明</h1>
+  <div class="sub">LAN Call 的安全设计：不信任网络，只信任数学与你的确认</div>
+
+  <div class="card">
+    <h2>一、什么叫"完全离线"</h2>
+    <ul>
+      <li>通话信令和媒体只走局域网，<b>不经过任何公网服务器</b>，不依赖互联网可用性；</li>
+      <li>不使用公网 STUN/TURN 穿透服务，只使用局域网直连；</li>
+      <li>无账号体系：不注册、不登录，没有"用户数据库"可泄露；</li>
+      <li>无统计上报、无崩溃上报、无自动更新检查——软件运行时不产生任何对外网络连接（除局域网通话本身）；</li>
+      <li>音视频不上传、不保存，挂断后不留存。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>二、首次配对：防窃听、防中间人</h2>
+    <ul>
+      <li>双方交换临时 X25519 公钥，经 ECDH 协商出共享密钥；</li>
+      <li>双方屏幕各显示 6 位 SAS 校验码，<b>必须人工比对一致后各自确认</b>；</li>
+      <li>中间人会导致双方校验码不一致而被发现；误确认时双向确认 MAC 校验也会失败，配对终止；</li>
+      <li>被动窃听者拿到全部明文流量也无法离线求解出密钥。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>三、信令与媒体加密</h2>
+    <ul>
+      <li>信令：AES-256-GCM，每次通话、每个方向独立派生会话密钥；</li>
+      <li>防重放 / 防反射：加密帧携带方向与严格递增序号，异常帧直接断开并告警；</li>
+      <li>媒体：WebRTC DTLS-SRTP 标准加密，与主流浏览器同等级别；</li>
+      <li>密钥经系统安全存储（Windows DPAPI）加密保存，不可用时仅驻留内存并提示，永不明文落盘。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>四、最小暴露面</h2>
+    <ul>
+      <li>信令只绑定局域网网卡，不监听公网；</li>
+      <li>未认证连接数、握手超时、配对尝试限流均有上限；</li>
+      <li>不自动修改系统防火墙规则——首次运行由用户在系统弹窗中手动放行。</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    <div class="nav">
+      <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
+    </div>
+    上海海策信息技术有限公司 版权所有 © 2025<br>
+    技术支持：<a href="mailto:support@haicechina.com">support@haicechina.com</a>
+  </div>
+</div>
+</body>
+</html>

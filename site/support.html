@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>技术支持｜LAN Call 局域网视频通话</title>
+<meta name="description" content="LAN Call 技术支持：联系邮箱 support@haicechina.com，常见问题排查——SmartScreen 拦截、防火墙放行、配对、通话无声音等。">
+<link rel="canonical" href="https://lan-call.haice.top/support.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"技术支持｜LAN Call","url":"https://lan-call.haice.top/support.html","inLanguage":"zh-CN","isPartOf":{"@type":"WebSite","name":"LAN Call","url":"https://lan-call.haice.top/"},"publisher":{"@type":"Organization","name":"上海海策信息技术有限公司","email":"support@haicechina.com"}}
+</script>
+<style>
+:root{--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--primary:#2563eb;--bg:#f4f6f9}
+*{box-sizing:border-box}body{margin:0;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 60px}
+.nav{text-align:center;font-size:14px;margin-bottom:6px}
+.nav a{color:var(--primary);text-decoration:none;margin:0 10px}
+.nav a:hover{text-decoration:underline}
+h1{font-size:28px;text-align:center;margin:18px 0 6px}
+.sub{text-align:center;color:var(--muted);font-size:14px;margin-bottom:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin:18px 0}
+h2{font-size:19px;margin:0 0 10px}
+h3{font-size:16px;margin:16px 0 6px}
+p,li{font-size:15px}
+ul,ol{margin:8px 0;padding-left:22px}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:30px;line-height:2}
+.foot a{color:var(--primary);text-decoration:none}
+.foot .nav{margin-bottom:4px}
+code{background:#f3f4f6;padding:2px 8px;border-radius:6px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav">
+    <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
+  </div>
+  <h1>技术支持</h1>
+  <div class="sub">使用问题与反馈：<a href="mailto:support@haicechina.com">support@haicechina.com</a></div>
+
+  <div class="card">
+    <h2>常见问题</h2>
+
+    <h3>安装时 Windows SmartScreen 拦截</h3>
+    <p>测试版安装包暂无代码签名，属正常现象。点击"更多信息" → "仍要运行"即可继续安装。安装前可核对官网公布的 SHA256。</p>
+
+    <h3>提示无法连接对方（ECONNREFUSED / 超时）</h3>
+    <ul>
+      <li>确认对方已运行软件，且双方在同一局域网；</li>
+      <li>首次运行请在 Windows 防火墙弹窗中勾选"专用网络"并允许访问；</li>
+      <li>确认输入的 IP 是对方电脑"本机"卡片里显示的局域网 IP（如 <code>192.168.1.20</code>），不是路由器地址；</li>
+      <li>如对方修改过端口，IP 后加 <code>:端口</code>（如 <code>192.168.1.20:48218</code>）。</li>
+    </ul>
+
+    <h3>配对时双方校验码不一致</h3>
+    <p>说明可能存在中间人或一方输错了地址：请取消配对，核对 IP 后重新发起，并确保比对的是双方屏幕上同时显示的 6 位码。</p>
+
+    <h3>通话没有声音</h3>
+    <ul>
+      <li>点软件内"音视频设备"卡片的"测试扬声器"：能听到声音说明扬声器正常，查麦克风；</li>
+      <li>看"使用中"的麦克风是否为期望的设备；</li>
+      <li>Windows 设置 → 系统 → 声音 → 输入，确认输入音量条说话时有反应；</li>
+      <li>右键任务栏音量图标 → 音量合成器，确认 LAN Call 未被静音。</li>
+    </ul>
+
+    <h3>一台电脑双开测试，第二个实例提示设备被占用</h3>
+    <p>Windows 下摄像头同一时间只能被一个程序使用，属系统限制。v0.2.2 起，接听方摄像头被占用时会自动降级为纯音频通话，不影响验证信令与语音通路。</p>
+  </div>
+
+  <div class="card">
+    <h2>反馈时请提供</h2>
+    <ol>
+      <li>软件版本号（"本机"卡片或官网下载页可查）；</li>
+      <li>Windows 版本（如 Windows 11 23H2）；</li>
+      <li>问题现象与复现步骤，配对/通话/设备相关的请附上提示文字截图。</li>
+    </ol>
+  </div>
+
+  <div class="foot">
+    <div class="nav">
+      <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
+    </div>
+    上海海策信息技术有限公司 版权所有 © 2025<br>
+    技术支持：<a href="mailto:support@haicechina.com">support@haicechina.com</a>
+  </div>
+</div>
+</body>
+</html>

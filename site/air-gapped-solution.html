@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>物理隔离环境离线视频通信方案｜LAN Call</title>
+<meta name="description" content="适用于物理隔离、内网和合规敏感环境的技术方案：LAN Call 无服务器离线视频通话的部署方式、网络要求与安全机制说明。">
+<link rel="canonical" href="https://lan-call.haice.top/air-gapped-solution.html">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","name":"物理隔离环境离线视频通信方案｜LAN Call","url":"https://lan-call.haice.top/air-gapped-solution.html","inLanguage":"zh-CN","isPartOf":{"@type":"WebSite","name":"LAN Call","url":"https://lan-call.haice.top/"},"publisher":{"@type":"Organization","name":"上海海策信息技术有限公司","email":"support@haicechina.com"}}
+</script>
+<style>
+:root{--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--primary:#2563eb;--bg:#f4f6f9}
+*{box-sizing:border-box}body{margin:0;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 60px}
+.nav{text-align:center;font-size:14px;margin-bottom:6px}
+.nav a{color:var(--primary);text-decoration:none;margin:0 10px}
+.nav a:hover{text-decoration:underline}
+h1{font-size:28px;text-align:center;margin:18px 0 6px}
+.sub{text-align:center;color:var(--muted);font-size:14px;margin-bottom:20px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin:18px 0}
+h2{font-size:19px;margin:0 0 10px}
+ul,ol{margin:8px 0;padding-left:22px;font-size:15px}
+.note{font-size:13px;color:var(--muted);background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-top:12px}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:30px;line-height:2}
+.foot a{color:var(--primary);text-decoration:none}
+.foot .nav{margin-bottom:4px}
+code{background:#f3f4f6;padding:2px 8px;border-radius:6px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="nav">
+    <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
+  </div>
+  <h1>物理隔离环境离线视频通信方案</h1>
+  <div class="sub">适用于物理隔离、内网和合规敏感环境的技术方案</div>
+
+  <div class="card">
+    <h2>一、方案概述</h2>
+    <p>LAN Call 是一对一视频通话软件，采用无服务器架构：每台终端既是客户端也是服务端，通话信令与媒体均在局域网内点对点完成，不经过、不依赖任何外部服务器与互联网连接。该技术形态适用于物理隔离、纯内网以及对数据出境敏感的环境，由使用单位结合自身安全管理制度自行评估部署。</p>
+  </div>
+
+  <div class="card">
+    <h2>二、部署方式</h2>
+    <ol>
+      <li>通过离线介质（U 盘等）或内网文件分发渠道将安装包送达终端；</li>
+      <li>安装前核对安装包 SHA256 校验值（官网公布），确认文件完整未被篡改；</li>
+      <li>在需要通话的终端上分别安装，无需管理员权限，不写系统关键位置；</li>
+      <li>首次启动按系统提示手动放行防火墙（软件不自动修改防火墙规则）。</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>三、网络要求</h2>
+    <ul>
+      <li>通话双方须处于同一局域网 / 隔离网段，IP 可达；</li>
+      <li>不需要互联网连接，不需要公网 DNS 解析；</li>
+      <li>默认信令端口 48217（TCP），媒体走 WebRTC 动态端口（UDP，局域网直连）；</li>
+      <li>不向公网发起任何连接，不依赖外部 STUN/TURN 服务。</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h2>四、安全机制摘要</h2>
+    <ul>
+      <li>首次配对：X25519 ECDH + 双方屏幕 6 位 SAS 校验码人工比对，防窃听与中间人；</li>
+      <li>信令：AES-256-GCM，每连接每方向独立密钥，防重放/反射；</li>
+      <li>媒体：WebRTC DTLS-SRTP 标准加密；</li>
+      <li>无账号、无统计上报、无自动更新检查；音视频不上传、不保存。</li>
+    </ul>
+    <p><a href="/offline-security.html">查看完整离线安全说明 →</a></p>
+  </div>
+
+  <div class="card">
+    <h2>五、适用情形举例</h2>
+    <ul>
+      <li>内外网物理隔离场所的内部点对点语音视频沟通；</li>
+      <li>企业内网、生产内网、分支机构局域网内的通话需求；</li>
+      <li>对"数据不出内网"有明确要求的单位的自主评估与试点。</li>
+    </ul>
+    <div class="note">说明：以上为技术方案的适用性描述，供单位自行评估参考。本页面不宣称任何行业准入资质、认证结果、中标案例与客户名单；是否满足贵单位的安全合规要求，请以贵单位信息安全部门的评估结论为准。</div>
+  </div>
+
+  <div class="card">
+    <h2>六、获取与联系</h2>
+    <p>测试版安装包下载：<a href="/">官网首页</a>（请核对 SHA256）。<br>
+    技术咨询与反馈：<a href="mailto:support@haicechina.com">support@haicechina.com</a></p>
+  </div>
+
+  <div class="foot">
+    <div class="nav">
+      <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
+    </div>
+    上海海策信息技术有限公司 版权所有 © 2025<br>
+    技术支持：<a href="mailto:support@haicechina.com">support@haicechina.com</a>
+  </div>
+</div>
+</body>
+</html>

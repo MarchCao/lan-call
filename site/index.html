@@ -3,14 +3,43 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>LAN Call｜下载</title>
-<meta name="description" content="LAN Call 局域网一对一视频通话：完全离线、无服务器、端到端加密。">
+<title>局域网离线视频通话｜LAN Call 无服务器软件</title>
+<meta name="description" content="LAN Call 是完全离线的局域网视频通话软件，无服务器、无账号、无统计，X25519 加密与 SAS 双方校验，适用于物理隔离与内网合规环境。">
+<link rel="canonical" href="https://lan-call.haice.top/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://lan-call.haice.top/#organization",
+      "name": "上海海策信息技术有限公司",
+      "url": "https://lan-call.haice.top/",
+      "email": "support@haicechina.com"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://lan-call.haice.top/#software",
+      "name": "LAN Call",
+      "applicationCategory": "CommunicationApplication",
+      "operatingSystem": "Windows 10/11（64 位）",
+      "softwareVersion": "0.2.4",
+      "url": "https://lan-call.haice.top/",
+      "description": "完全离线的局域网一对一视频通话软件：无服务器、无账号、无统计；X25519 ECDH + SAS 双方校验配对，信令 AES-256-GCM 加密，媒体 WebRTC DTLS-SRTP 加密。",
+      "publisher": { "@id": "https://lan-call.haice.top/#organization" }
+    }
+  ]
+}
+</script>
 <style>
 :root{--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--primary:#2563eb;--bg:#f4f6f9}
 *{box-sizing:border-box}body{margin:0;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
 .wrap{max-width:760px;margin:0 auto;padding:40px 20px 60px}
+.nav{text-align:center;font-size:14px;margin-bottom:6px}
+.nav a{color:var(--primary);text-decoration:none;margin:0 10px}
+.nav a:hover{text-decoration:underline}
 .hero{text-align:center;padding:28px 0}
-.hero h1{font-size:34px;margin:0 0 8px}
+.hero h1{font-size:32px;margin:0 0 8px}
 .hero .tag{color:var(--muted);font-size:15px}
 .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin:18px 0}
 .dl{text-align:center}
@@ -23,28 +52,49 @@
 h2{font-size:19px;margin:0 0 10px}
 ol,ul{margin:8px 0;padding-left:22px;font-size:15px}
 .warn{background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:12px 16px;font-size:14px;margin:14px 0}
-.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:30px}
-.foot a{color:var(--primary)}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:30px;line-height:2}
+.foot a{color:var(--primary);text-decoration:none}
+.foot a:hover{text-decoration:underline}
+.foot .nav{margin-bottom:4px}
 code{background:#f3f4f6;padding:2px 8px;border-radius:6px;font-size:13px}
+.feat{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
+.feat div{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px}
+.feat b{display:block;margin-bottom:2px}
+@media(max-width:560px){.feat{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <div class="wrap">
+  <div class="nav">
+    <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
+  </div>
   <div class="hero">
-    <h1>📞 LAN Call</h1>
-    <div class="tag">局域网一对一视频通话 · 完全离线 · 无服务器 · 端到端加密 · 无广告</div>
+    <h1>LAN Call 局域网离线视频通话</h1>
+    <div class="tag">完全离线 · 无服务器 · 无账号 · 无统计 · 端到端加密</div>
   </div>
 
   <div class="card dl">
     <h2>下载 v0.2.4 测试版（Windows 10/11，64 位）</h2>
     <a class="btn" href="https://github.com/MarchCao/lan-call/releases/download/v0.2.4/LAN-Call-Setup-0.2.4-win-x64.exe">⬇ 下载安装包（136MB）</a>
     <div class="meta">SHA256（点击复制）：</div>
-    <div class="sha" id="sha" title="点击复制">1c5926206dce64e44787f20839098306ef882449482224c02360dfeada</div>
+    <div class="sha" id="sha" title="点击复制">1c5926206dce64e44787f20839005939098306ef882449482224c02360dfeada</div>
     <div class="meta" style="margin-top:14px">
       <a href="https://github.com/MarchCao/lan-call/releases/download/v0.2.4/lan-call-v0.2.4-src.tar.gz">源码包 lan-call-v0.2.4-src.tar.gz（75KB）</a>
     </div>
     <div class="warn">⚠️ 这是早期测试版本，欢迎试用并反馈使用问题。<br>
     安装包<b>无代码签名</b>，Windows SmartScreen 会拦截：点击"更多信息"→"仍要运行"即可。</div>
+  </div>
+
+  <div class="card">
+    <h2>核心特性</h2>
+    <div class="feat">
+      <div><b>完全离线</b>通话不经过任何公网服务器，不依赖互联网</div>
+      <div><b>无服务器架构</b>每台电脑既是客户端也是服务端，无中心节点</div>
+      <div><b>无账号无统计</b>不注册、不登录、不上传任何数据</div>
+      <div><b>SAS 双方校验</b>首次配对双方屏幕比对 6 位校验码，防中间人</div>
+      <div><b>全程加密</b>X25519 配对、AES-256-GCM 信令、DTLS-SRTP 媒体</div>
+      <div><b>物理隔离适用</b>适用于物理隔离、内网与合规敏感环境</div>
+    </div>
   </div>
 
   <div class="card">
@@ -58,6 +108,16 @@ code{background:#f3f4f6;padding:2px 8px;border-radius:6px;font-size:13px}
   </div>
 
   <div class="card">
+    <h2>适用场景</h2>
+    <ul>
+      <li><b>物理隔离环境</b>：内外网隔离、无法连接互联网的场所内部语音视频沟通。</li>
+      <li><b>企业内网</b>：办公内网、生产内网、分支机构局域网内的点对点通话。</li>
+      <li><b>合规敏感单位</b>：对数据不出内网、有通信留痕与自主可控要求的单位，可自行评估部署。</li>
+    </ul>
+    <p style="font-size:13px;color:#6b7280">以上为技术方案的适用性说明，不构成对特定行业资质、认证或采购结果的承诺。</p>
+  </div>
+
+  <div class="card">
     <h2>安全说明</h2>
     <ul>
       <li>配对：X25519 ECDH + SAS 双方比对，防窃听与中间人。</li>
@@ -65,10 +125,21 @@ code{background:#f3f4f6;padding:2px 8px;border-radius:6px;font-size:13px}
       <li>媒体：WebRTC DTLS-SRTP 标准加密；音视频不上传、不保存。</li>
       <li>无账号、无统计、不修改防火墙（首次运行请在系统弹窗中手动放行）。</li>
     </ul>
+    <p><a href="/offline-security.html">查看完整离线安全说明 →</a></p>
+  </div>
+
+  <div class="card">
+    <h2>技术支持</h2>
+    <p>使用问题与反馈请联系：<a href="mailto:support@haicechina.com">support@haicechina.com</a></p>
+    <p><a href="/support.html">常见问题与排查指南 →</a></p>
   </div>
 
   <div class="foot">
-    LAN Call v0.2.4 · 阶段一原型
+    <div class="nav">
+      <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
+    </div>
+    上海海策信息技术有限公司 版权所有 © 2025<br>
+    技术支持：<a href="mailto:support@haicechina.com">support@haicechina.com</a>
   </div>
 </div>
 <script>
