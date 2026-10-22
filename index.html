@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAN Call｜下载</title>
+<meta name="description" content="LAN Call 局域网一对一视频通话：完全离线、无服务器、端到端加密。">
+<style>
+:root{--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--primary:#2563eb;--bg:#f4f6f9}
+*{box-sizing:border-box}body{margin:0;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
+.wrap{max-width:760px;margin:0 auto;padding:40px 20px 60px}
+.hero{text-align:center;padding:28px 0}
+.hero h1{font-size:34px;margin:0 0 8px}
+.hero .tag{color:var(--muted);font-size:15px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin:18px 0}
+.dl{text-align:center}
+.btn{display:inline-block;background:var(--primary);color:#fff;font-size:18px;font-weight:700;
+  padding:15px 46px;border-radius:12px;text-decoration:none;margin:10px 0}
+.btn:hover{background:#1d4ed8}
+.meta{color:var(--muted);font-size:13px;margin:8px 0}
+.sha{font-family:ui-monospace,monospace;font-size:12px;background:#f3f4f6;border:1px solid var(--line);
+  border-radius:8px;padding:10px 12px;word-break:break-all;cursor:pointer}
+h2{font-size:19px;margin:0 0 10px}
+ol,ul{margin:8px 0;padding-left:22px;font-size:15px}
+.warn{background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:12px 16px;font-size:14px;margin:14px 0}
+.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:30px}
+.foot a{color:var(--primary)}
+code{background:#f3f4f6;padding:2px 8px;border-radius:6px;font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="hero">
+    <h1>📞 LAN Call</h1>
+    <div class="tag">局域网一对一视频通话 · 完全离线 · 无服务器 · 端到端加密 · 无广告</div>
+  </div>
+
+  <div class="card dl">
+    <h2>下载 v0.2.0（Windows 10/11，64 位）</h2>
+    <a class="btn" href="https://github.com/MarchCao/lan-call/releases/download/v0.2.0/LAN-Call-Setup-0.2.0-win-x64.exe">⬇ 下载安装包（136MB）</a>
+    <div class="meta">SHA256（点击复制）：</div>
+    <div class="sha" id="sha" title="点击复制">c390f1177ec6d905cb5d763a90d26df82dbd523b1e207ad66922c707c3e0e55a</div>
+    <div class="meta" style="margin-top:14px">
+      <a href="https://github.com/MarchCao/lan-call/releases/download/v0.2.0/lan-call-v0.2.0-src.tar.gz">源码包 lan-call-v0.2.0-src.tar.gz（75KB）</a>
+      &nbsp;·&nbsp;
+      <a href="https://github.com/MarchCao/lan-call">GitHub 仓库</a>
+    </div>
+    <div class="warn">⚠️ 安装包<b>无代码签名</b>，Windows SmartScreen 会拦截：点击"更多信息"→"仍要运行"即可。<br>
+    安装包<b>已构建、未在真机验证</b>（属阶段四交付物），欢迎反馈问题。</div>
+  </div>
+
+  <div class="card">
+    <h2>快速上手</h2>
+    <ol>
+      <li>两台电脑分别安装，记下各自的"本机 IP"（须在同一局域网）。</li>
+      <li>A 在"设备配对"输入 B 的 IP → 发起配对。</li>
+      <li>B 接受后，<b>双方屏幕各显示 6 位校验码</b>，当面/电话核对一致后各自点"确认"。</li>
+      <li>任一方输入对方 IP 发起通话，对方接听即建立双向音视频。</li>
+    </ol>
+  </div>
+
+  <div class="card">
+    <h2>安全说明</h2>
+    <ul>
+      <li>配对：X25519 ECDH + SAS 双方比对，防窃听与中间人。</li>
+      <li>信令全程 AES-256-GCM 加密（每连接、每方向独立密钥，防重放/反射）。</li>
+      <li>媒体：WebRTC DTLS-SRTP 标准加密；音视频不上传、不保存。</li>
+      <li>无账号、无统计、不修改防火墙（首次运行请在系统弹窗中手动放行）。</li>
+    </ul>
+  </div>
+
+  <div class="foot">
+    LAN Call v0.2.0 · 阶段一原型 · <a href="https://github.com/MarchCao/lan-call">源码与文档</a>
+  </div>
+</div>
+<script>
+document.getElementById('sha').addEventListener('click', function(){
+  var t = this.textContent.trim();
+  if (navigator.clipboard) navigator.clipboard.writeText(t);
+  this.title = '已复制';
+  setTimeout(()=>{ this.title='点击复制'; }, 1500);
+});
+</script>
+</body>
+</html>
