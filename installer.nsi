@@ -6,7 +6,7 @@
 !include "MUI2.nsh"
 
 Name "LAN Call"
-OutFile "dist/LAN-Call-Setup-0.2.2-win-x64.exe"
+OutFile "dist/LAN-Call-Setup-0.2.3-win-x64.exe"
 InstallDir "$LOCALAPPDATA\LAN Call"
 InstallDirRegKey HKCU "Software\LAN Call" "InstallDir"
 RequestExecutionLevel user

@@ -29,6 +29,16 @@
     </div>
 
     <div class="card">
+      <h2>音视频设备</h2>
+      <div class="row"><span>摄像头</span><div id="devVideo" class="ips">—</div></div>
+      <div class="row"><span>麦克风</span><div id="devAudio" class="ips">—</div></div>
+      <div class="row"><span>扬声器</span><div id="devSpeaker" class="ips">—</div></div>
+      <div class="row"><span></span><button id="devRefresh" class="btn small">刷新设备列表</button>
+        <button id="devBeep" class="btn small">🔈 测试扬声器</button></div>
+      <p class="hint">“← 使用中”为当前实际使用的设备（需先允许过麦克风/摄像头权限才会显示名称）。通话无声音时：先确认麦克风是期望的设备，再检查 Windows 音量合成器中两个 LAN Call 进程均未被静音。</p>
+    </div>
+
+    <div class="card">
       <h2>设备配对</h2>
       <label class="row"><span>对方 IP</span>
         <input id="pairIp" placeholder="例如：192.168.1.20（或 IP:端口）" inputmode="numeric">

@@ -103,6 +103,43 @@ function bindButtons() {
     return { ip: s, port: window.__testPeerPort };
   }
 
+  // ---- 音视频设备列表 ----
+  async function refreshDevices() {
+    try {
+      const devs = await navigator.mediaDevices.enumerateDevices();
+      const inUseAudio = media.localStream ? (media.localStream.getAudioTracks()[0] || {}).label || '' : '';
+      const inUseVideo = media.localStream ? (media.localStream.getVideoTracks()[0] || {}).label || '' : '';
+      const row = (kind, inUse) => {
+        const list = devs.filter(d => d.kind === kind);
+        if (!list.length) return '无';
+        return list.map(d => {
+          const label = d.label || '(未命名：需先允许麦克风/摄像头权限)';
+          const mark = inUse && d.label && d.label === inUse ? ' <b>← 使用中</b>' : '';
+          return label + mark;
+        }).join('<br>');
+      };
+      $('devVideo').innerHTML = row('videoinput', inUseVideo);
+      $('devAudio').innerHTML = row('audioinput', inUseAudio);
+      $('devSpeaker').innerHTML = row('audiooutput', '');
+    } catch { /* 忽略 */ }
+  }
+  $('devRefresh').onclick = () => { refreshDevices(); toast('设备列表已刷新'); };
+  $('devBeep').onclick = () => {
+    try {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value = 880; g.gain.value = 0.15;
+      o.start(); o.stop(ctx.currentTime + 0.4);
+      o.onended = () => ctx.close();
+      toast('已播放测试音，能听到说明扬声器正常');
+    } catch (e) { toast(`无法播放测试音：${e.message}`); }
+  };
+  if (navigator.mediaDevices) {
+    navigator.mediaDevices.addEventListener('devicechange', refreshDevices);
+    refreshDevices();
+  }
+
   $('pairBtn').onclick = async () => {
     const { ip, port } = parseIpPort($('pairIp').value.trim());
     if (!ip) return toast('请先输入对方 IP');
@@ -145,6 +182,7 @@ function bindButtons() {
       setStatus('正在打开摄像头/麦克风…');
       const local = await media.ensureLocalStream();
       $('localVideo').srcObject = local;
+      refreshDevices();
       setStatus(`正在呼叫 ${raw}…`);
       callState = 'dialing';
       $('callControls').classList.remove('hidden');
@@ -164,6 +202,7 @@ function bindButtons() {
       setStatus('正在打开摄像头/麦克风…');
       const local = await media.ensureLocalStream();
       $('localVideo').srcObject = local;
+      refreshDevices();
       if (!media.videoAvailable) toast('摄像头不可用，已切换为纯音频通话', 4000);
       const answerSdp = await media.handleOffer(window._incomingSdp);
       await invoke('answer', answerSdp);
