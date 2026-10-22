@@ -1,0 +1,55 @@
+{
+  "build": {
+    "appId": "top.haice.lancall",
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "package.json"
+    ],
+    "nsis": {
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "oneClick": false,
+      "perMachine": false,
+      "shortcutName": "LAN Call"
+    },
+    "productName": "LAN Call",
+    "win": {
+      "artifactName": "LAN-Call-Setup-${version}-win-x64.${ext}",
+      "target": [
+        {
+          "arch": [
+            "x64"
+          ],
+          "target": "nsis"
+        }
+      ],
+      "signAndEditExecutable": false,
+      "requestedExecutionLevel": "asInvoker"
+    }
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "description": "LAN Call｜局域网一对一视频通话（阶段一 v0.2.0：协议 v2 ECDH+SAS）",
+  "devDependencies": {
+    "electron": "^39.1.0",
+    "electron-builder": "^26.0.0",
+    "playwright": "^1.49.0"
+  },
+  "license": "UNLICENSED",
+  "main": "src/main/main.js",
+  "name": "lan-call",
+  "private": true,
+  "scripts": {
+    "dist:win": "electron-builder --win nsis --x64",
+    "start": "electron .",
+    "test:e2e": "node test/e2e-call.test.js",
+    "test:signaling": "node test/signaling.test.js",
+    "test:unit": "node --test test/unit.test.js"
+  },
+  "version": "0.2.0"
+}

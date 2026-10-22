@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; media-src 'self' blob:; img-src 'self' data: blob:;">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LAN Call｜局域网视频通话</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">📞 LAN Call <span class="sub">局域网视频通话 · 阶段一原型</span></div>
+  <div id="netStatus" class="net-status">正在启动…</div>
+</header>
+<div id="storeWarn" class="store-warn hidden">⚠️ 系统密钥库不可用：配对密钥仅保存在内存中，重启软件后需重新配对。</div>
+
+<main class="layout">
+  <!-- 左列：本机与配对 -->
+  <section class="col">
+    <div class="card">
+      <h2>本机</h2>
+      <label class="row"><span>设备名称</span>
+        <input id="deviceName" maxlength="40" placeholder="例如：会议室电脑">
+        <button id="saveName" class="btn small">保存</button>
+      </label>
+      <div class="row"><span>本机 IP</span><div id="ipList" class="ips">—</div></div>
+      <div class="row"><span>信令端口</span><div id="portInfo">—</div></div>
+      <p class="hint">两台电脑须在同一局域网，并都运行本软件。首次通话前需先完成配对（双方确认）。</p>
+    </div>
+
+    <div class="card">
+      <h2>设备配对</h2>
+      <label class="row"><span>对方 IP</span>
+        <input id="pairIp" placeholder="例如：192.168.1.20" inputmode="numeric">
+        <button id="pairBtn" class="btn">发起配对</button>
+      </label>
+      <div id="pairCodeBox" class="pair-code hidden">
+        <p>请与对方当面/电话核对：双方屏幕显示的 <b>6 位校验码</b> 是否一致？</p>
+        <div id="pairCode" class="code">------</div>
+        <div class="btn-row" style="justify-content:center">
+          <button id="sasOkBtn" class="btn primary">一致，确认配对</button>
+          <button id="sasNoBtn" class="btn danger">不一致，取消</button>
+        </div>
+        <p class="hint">校验码一致才能防中间人：若不一致，说明有人在窃听/篡改，请立即取消。</p>
+      </div>
+      <div id="pairIncomingBox" class="hidden">
+        <p>📩 <b id="pairFromName">对方</b> 请求配对</p>
+        <div class="btn-row">
+          <button id="pairAcceptBtn" class="btn primary">接受</button>
+          <button id="pairRejectBtn" class="btn danger">拒绝</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>已配对设备</h2>
+      <div id="peerList" class="peer-list"><p class="hint">暂无</p></div>
+    </div>
+  </section>
+
+  <!-- 右列：通话 -->
+  <section class="col wide">
+    <div class="card">
+      <h2>视频通话</h2>
+      <label class="row"><span>对方 IP</span>
+        <input id="callIp" placeholder="例如：192.168.1.20" inputmode="numeric">
+        <button id="callBtn" class="btn primary">📞 发起通话</button>
+      </label>
+      <div id="incomingBox" class="incoming hidden">
+        <p>📲 <b id="incomingName">对方</b> 来电…</p>
+        <div class="btn-row">
+          <button id="answerBtn" class="btn primary big">接听</button>
+          <button id="rejectBtn" class="btn danger big">拒接</button>
+        </div>
+      </div>
+      <div class="videos">
+        <div class="video-wrap">
+          <video id="remoteVideo" autoplay playsinline></video>
+          <span class="tag">对方</span>
+        </div>
+        <div class="video-wrap small">
+          <video id="localVideo" autoplay playsinline muted></video>
+          <span class="tag">我</span>
+        </div>
+      </div>
+      <div id="callControls" class="btn-row hidden">
+        <button id="muteBtn" class="btn">🔇 静音</button>
+        <button id="videoBtn" class="btn">🎥 关闭视频</button>
+        <button id="hangupBtn" class="btn danger">挂断</button>
+      </div>
+      <p id="callStatus" class="status">空闲</p>
+    </div>
+
+    <div class="card">
+      <h2>提示</h2>
+      <ul class="tips">
+        <li>首次运行：Windows 防火墙可能弹窗询问，请勾选“专用网络”并允许访问。</li>
+        <li>断开互联网后仍可通话：本软件只用局域网，不依赖公网。</li>
+        <li>若对方无响应：确认对方软件已打开、IP 正确、两人连的是同一个 Wi-Fi/交换机。</li>
+        <li>音视频不上传、不保存，通话全程端到端加密。</li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<div id="toast" class="toast hidden"></div>
+
+<script src="media.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

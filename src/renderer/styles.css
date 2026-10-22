@@ -1,0 +1,52 @@
+:root {
+  --bg: #f4f6f9; --card: #fff; --ink: #1f2937; --muted: #6b7280;
+  --line: #e5e7eb; --primary: #2563eb; --danger: #dc2626; --ok: #059669;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif; background: var(--bg); color: var(--ink); }
+.topbar { display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; background: #111827; color: #fff; }
+.brand { font-size: 18px; font-weight: 700; }
+.brand .sub { font-size: 12px; font-weight: 400; color: #9ca3af; margin-left: 8px; }
+.net-status { font-size: 13px; padding: 6px 12px; border-radius: 20px; background: #374151; }
+.net-status.ok { background: var(--ok); }
+.net-status.err { background: var(--danger); }
+.store-warn { background: #fef3c7; color: #92400e; font-size: 13px; padding: 8px 20px; border-bottom: 1px solid #fcd34d; }
+.layout { display: flex; gap: 16px; padding: 16px 20px; max-width: 1280px; margin: 0 auto; align-items: flex-start; }
+.col { flex: 1; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.col.wide { flex: 1.6; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+.card h2 { margin: 0 0 12px; font-size: 16px; }
+.row { display: flex; align-items: center; gap: 10px; margin: 8px 0; }
+.row > span:first-child { flex: 0 0 76px; color: var(--muted); font-size: 14px; }
+input { flex: 1; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; font-size: 14px; min-width: 0; }
+.btn { padding: 9px 16px; border: 1px solid var(--line); background: #fff; border-radius: 8px; font-size: 14px; cursor: pointer; white-space: nowrap; }
+.btn:hover { background: #f3f4f6; }
+.btn.primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.btn.primary:hover { background: #1d4ed8; }
+.btn.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+.btn.danger:hover { background: #b91c1c; }
+.btn.small { padding: 6px 10px; font-size: 13px; }
+.btn.big { padding: 12px 34px; font-size: 16px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-row { display: flex; gap: 10px; margin: 10px 0; flex-wrap: wrap; }
+.hint { font-size: 13px; color: var(--muted); line-height: 1.6; }
+.ips { display: flex; gap: 8px; flex-wrap: wrap; }
+.ips code { background: #eef2ff; color: #3730a3; padding: 4px 10px; border-radius: 6px; font-size: 13px; }
+.pair-code { text-align: center; margin: 12px 0; padding: 14px; background: #f0fdf4; border: 1px dashed var(--ok); border-radius: 10px; }
+.pair-code .code { font-size: 40px; font-weight: 800; letter-spacing: 12px; color: var(--ok); margin: 8px 0; font-family: ui-monospace, monospace; }
+.hidden { display: none !important; }
+.incoming { text-align: center; padding: 16px; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 10px; margin: 10px 0; animation: pulse 1.2s infinite; }
+@keyframes pulse { 50% { background: #dbeafe; } }
+.videos { position: relative; display: flex; gap: 10px; margin: 12px 0; }
+.video-wrap { position: relative; flex: 1; background: #000; border-radius: 10px; overflow: hidden; aspect-ratio: 16/9; }
+.video-wrap.small { position: absolute; right: 10px; bottom: 10px; width: 26%; aspect-ratio: 4/3; border: 2px solid #fff; }
+.video-wrap video { width: 100%; height: 100%; object-fit: cover; }
+.video-wrap .tag { position: absolute; left: 8px; top: 6px; font-size: 12px; color: #fff; background: rgba(0,0,0,.5); padding: 2px 8px; border-radius: 6px; }
+.status { font-size: 14px; color: var(--muted); min-height: 22px; }
+.status.live { color: var(--ok); font-weight: 600; }
+.status.err { color: var(--danger); }
+.peer-list .peer { display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: 14px; }
+.peer-list .peer:last-child { border-bottom: none; }
+.tips { margin: 0; padding-left: 18px; font-size: 13px; color: var(--muted); line-height: 1.9; }
+.toast { position: fixed; left: 50%; bottom: 28px; transform: translateX(-50%); background: #111827; color: #fff; padding: 12px 22px; border-radius: 10px; font-size: 14px; z-index: 50; max-width: 80vw; }
+@media (max-width: 900px) { .layout { flex-direction: column; } }
