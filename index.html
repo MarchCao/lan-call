@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>局域网离线视频通话｜LAN Call 无服务器软件</title>
 <meta name="description" content="LAN Call 是完全离线的局域网视频通话软件，无服务器、无账号、无统计，X25519 加密与 SAS 双方校验，适用于物理隔离与内网合规环境。">
 <meta name="baidu-site-verification" content="codeva-z1rHoaVQlK" />
@@ -10,145 +10,339 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "Organization",
-      "@id": "https://lan-call.haice.top/#organization",
-      "name": "上海海策信息技术有限公司",
-      "url": "https://lan-call.haice.top/",
-      "email": "support@haicechina.com"
-    },
-    {
-      "@type": "SoftwareApplication",
-      "@id": "https://lan-call.haice.top/#software",
-      "name": "LAN Call",
-      "applicationCategory": "CommunicationApplication",
-      "operatingSystem": "Windows 10/11（64 位）",
-      "softwareVersion": "0.2.4",
-      "url": "https://lan-call.haice.top/",
-      "description": "完全离线的局域网一对一视频通话软件：无服务器、无账号、无统计；X25519 ECDH + SAS 双方校验配对，信令 AES-256-GCM 加密，媒体 WebRTC DTLS-SRTP 加密。",
-      "publisher": { "@id": "https://lan-call.haice.top/#organization" }
-    }
-  ]
+  "@type": "SoftwareApplication",
+  "name": "LAN Call",
+  "applicationCategory": "CommunicationApplication",
+  "operatingSystem": "Windows 10/11 64-bit",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "CNY" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "上海海策信息技术有限公司",
+    "email": "support@haicechina.com"
+  }
 }
 </script>
 <style>
-:root{--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;--primary:#2563eb;--bg:#f4f6f9}
-*{box-sizing:border-box}body{margin:0;font-family:"Microsoft YaHei","PingFang SC",system-ui,sans-serif;background:var(--bg);color:var(--ink);line-height:1.7}
-.wrap{max-width:760px;margin:0 auto;padding:40px 20px 60px}
-.nav{text-align:center;font-size:14px;margin-bottom:6px}
-.nav a{color:var(--primary);text-decoration:none;margin:0 10px}
-.nav a:hover{text-decoration:underline}
-.hero{text-align:center;padding:28px 0}
-.hero h1{font-size:32px;margin:0 0 8px}
-.hero .tag{color:var(--muted);font-size:15px}
-.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin:18px 0}
-.dl{text-align:center}
-.btn{display:inline-block;background:var(--primary);color:#fff;font-size:18px;font-weight:700;
-  padding:15px 46px;border-radius:12px;text-decoration:none;margin:10px 0}
-.btn:hover{background:#1d4ed8}
-.meta{color:var(--muted);font-size:13px;margin:8px 0}
-.sha{font-family:ui-monospace,monospace;font-size:12px;background:#f3f4f6;border:1px solid var(--line);
-  border-radius:8px;padding:10px 12px;word-break:break-all;cursor:pointer}
-h2{font-size:19px;margin:0 0 10px}
-ol,ul{margin:8px 0;padding-left:22px;font-size:15px}
-.warn{background:#fef3c7;border:1px solid #fcd34d;border-radius:10px;padding:12px 16px;font-size:14px;margin:14px 0}
-.foot{text-align:center;color:var(--muted);font-size:13px;margin-top:30px;line-height:2}
-.foot a{color:var(--primary);text-decoration:none}
-.foot a:hover{text-decoration:underline}
-.foot .nav{margin-bottom:4px}
-code{background:#f3f4f6;padding:2px 8px;border-radius:6px;font-size:13px}
-.feat{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px}
-.feat div{background:#f8fafc;border:1px solid var(--line);border-radius:10px;padding:12px 14px;font-size:14px}
-.feat b{display:block;margin-bottom:2px}
-@media(max-width:560px){.feat{grid-template-columns:1fr}}
+:root{
+  --blue:#1a66cc; --blue-dark:#134fa3; --ink:#1f2937; --muted:#5b6572;
+  --line:#e3e8ef; --bg:#f5f7fa; --card:#ffffff; --radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:-apple-system,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;color:var(--ink);background:var(--bg);line-height:1.7;font-size:16px}
+a{color:var(--blue)}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+/* ---------- 顶栏 ---------- */
+.topbar{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:50}
+.topbar .wrap{display:flex;align-items:center;height:60px;gap:28px}
+.brand{font-weight:700;font-size:18px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand b{color:var(--blue)}
+.nav{display:flex;gap:22px;margin-left:auto}
+.nav a{color:var(--ink);text-decoration:none;font-size:15px;padding:6px 2px}
+.nav a:hover{color:var(--blue)}
+.btn{display:inline-block;background:var(--blue);color:#fff;text-decoration:none;font-weight:600;padding:12px 30px;border-radius:8px;border:1px solid var(--blue);font-size:16px;cursor:pointer}
+.btn:hover{background:var(--blue-dark);border-color:var(--blue-dark);color:#fff}
+.btn-outline{background:#fff;color:var(--blue)}
+.btn-outline:hover{background:#eef4fd;color:var(--blue-dark)}
+:focus-visible{outline:3px solid #8db4f0;outline-offset:2px;border-radius:4px}
+/* ---------- 首屏 ---------- */
+.hero{background:#fff;border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;padding:64px 24px 56px;align-items:center}
+.badge{display:inline-block;background:#eef4fd;color:var(--blue-dark);font-size:13px;font-weight:600;padding:4px 12px;border-radius:20px;margin-bottom:16px}
+.hero h1{font-size:38px;line-height:1.35;margin-bottom:16px;letter-spacing:.5px}
+.hero .sub{color:var(--muted);font-size:17px;margin-bottom:28px}
+.hero-actions{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:18px}
+.ver{font-size:13.5px;color:var(--muted)}
+.hero-side{background:var(--bg);border:1px solid var(--line);border-radius:var(--radius);padding:22px}
+.hero-side h3{font-size:15px;margin-bottom:12px}
+.hero-side ul{list-style:none;font-size:14px;color:var(--muted)}
+.hero-side li{padding:7px 0;border-bottom:1px dashed var(--line)}
+.hero-side li:last-child{border-bottom:none}
+.hero-side li b{color:var(--ink);font-weight:600}
+/* ---------- 通用区块 ---------- */
+section.block{padding:52px 0}
+section.block h2{font-size:26px;margin-bottom:8px}
+.lead{color:var(--muted);margin-bottom:28px;max-width:760px}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:24px}
+.card h3{font-size:17px;margin-bottom:10px}
+.card p{font-size:14.5px;color:var(--muted)}
+.card .step-no{display:inline-flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;font-weight:700;margin-bottom:14px}
+/* ---------- 截图 ---------- */
+.shots{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.shot{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.shot img{display:block;width:100%;height:auto;border-bottom:1px solid var(--line)}
+.shot figcaption{padding:14px 16px;font-size:14px}
+.shot figcaption b{display:block;font-size:15px;margin-bottom:4px}
+.shot figcaption span{color:var(--muted);font-size:13px}
+/* ---------- 双栏 ---------- */
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:26px}
+.panel h3{font-size:17px;margin-bottom:12px}
+.panel ul{padding-left:20px;font-size:14.5px;color:var(--muted)}
+.panel li{margin-bottom:8px}
+/* ---------- 下载 ---------- */
+.dl-box{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px}
+.dl-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center;margin:18px 0}
+.hash{font-family:ui-monospace,Consolas,monospace;font-size:13px;background:var(--bg);border:1px solid var(--line);border-radius:6px;padding:10px 14px;word-break:break-all;flex:1;min-width:260px}
+.copybtn{background:#fff;border:1px solid var(--blue);color:var(--blue);border-radius:6px;padding:9px 18px;cursor:pointer;font-size:14px;font-weight:600}
+.copybtn:hover{background:#eef4fd}
+pre.cmd{background:#1f2937;color:#d7e3f4;border-radius:8px;padding:14px 16px;font-size:13.5px;overflow-x:auto;margin:12px 0;font-family:ui-monospace,Consolas,monospace}
+.note{background:#fff8e6;border:1px solid #f0dfa8;border-radius:8px;padding:14px 18px;font-size:14px;color:#6b5a2a;margin:14px 0}
+.note b{color:#4d3f1c}
+/* ---------- FAQ ---------- */
+.faq details{background:#fff;border:1px solid var(--line);border-radius:8px;margin-bottom:12px;padding:16px 20px}
+.faq summary{font-weight:600;cursor:pointer;font-size:15.5px}
+.faq details p{margin-top:10px;font-size:14.5px;color:var(--muted)}
+/* ---------- 页脚 ---------- */
+footer{background:#1f2937;color:#aeb8c4;padding:40px 0;margin-top:20px}
+footer .wrap{display:flex;flex-wrap:wrap;gap:32px;justify-content:space-between}
+footer a{color:#cdd6e2;text-decoration:none;font-size:14px}
+footer a:hover{color:#fff}
+footer .fcol h4{color:#fff;font-size:14px;margin-bottom:12px;font-weight:600}
+footer .fcol ul{list-style:none}
+footer .fcol li{margin-bottom:8px}
+.copyright{width:100%;border-top:1px solid #374151;padding-top:18px;margin-top:8px;font-size:13px;color:#8b94a1}
+/* ---------- 响应式 ---------- */
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr;gap:32px;padding:44px 24px 40px}
+  .hero h1{font-size:30px}
+  .cards,.shots{grid-template-columns:1fr}
+  .two-col{grid-template-columns:1fr}
+  .nav{gap:14px}
+  .nav a{font-size:14px}
+}
+@media (max-width:560px){
+  .nav{display:none}
+  .topbar .wrap{gap:12px}
+}
+@media (max-width:480px){
+  .hero h1{font-size:26px}
+  .hero-actions .btn{width:100%;text-align:center}
+  section.block{padding:36px 0}
+  .dl-row{flex-direction:column;align-items:stretch}
+}
 </style>
 </head>
 <body>
-<div class="wrap">
-  <div class="nav">
-    <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
-  </div>
-  <div class="hero">
-    <h1>LAN Call 局域网离线视频通话</h1>
-    <div class="tag">完全离线 · 无服务器 · 无账号 · 无统计 · 端到端加密</div>
-  </div>
 
-  <div class="card dl">
-    <h2>下载 v0.2.4 测试版（Windows 10/11，64 位）</h2>
-    <a class="btn" href="https://github.com/MarchCao/lan-call/releases/download/v0.2.4/LAN-Call-Setup-0.2.4-win-x64.exe">⬇ 下载安装包（136MB）</a>
-    <div class="meta">SHA256（点击复制）：</div>
-    <div class="sha" id="sha" title="点击复制">1c5926206dce64e44787f20839005939098306ef882449482224c02360dfeada</div>
-    <div class="meta" style="margin-top:14px">
-      <a href="https://github.com/MarchCao/lan-call/releases/download/v0.2.4/lan-call-v0.2.4-src.tar.gz">源码包 lan-call-v0.2.4-src.tar.gz（75KB）</a>
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/"><b>LAN Call</b> 局域网视频通话</a>
+    <nav class="nav" aria-label="主导航">
+      <a href="#download">下载</a>
+      <a href="#guide">使用指南</a>
+      <a href="#security">安全与隐私</a>
+    </nav>
+  </div>
+</header>
+
+<!-- 1. 首屏 -->
+<div class="hero">
+  <div class="wrap">
+    <div>
+      <span class="badge">测试版 v0.2.4 · 欢迎试用并反馈</span>
+      <h1>两台电脑，一条局域网，直接视频通话。</h1>
+      <p class="sub">无需互联网、无需账号、无需独立服务器。两台 Windows 电脑安装 LAN Call，即可在局域网内建立一对一加密视频通话。</p>
+      <div class="hero-actions">
+        <a class="btn" href="#download">下载 Windows 测试版</a>
+        <a class="btn btn-outline" href="#guide">查看使用指南</a>
+      </div>
+      <p class="ver">v0.2.4 · Windows 10/11 · 64 位 · 136 MB</p>
     </div>
-    <div class="warn">⚠️ 这是早期测试版本，欢迎试用并反馈使用问题。<br>
-    安装包<b>无代码签名</b>，Windows SmartScreen 会拦截：点击"更多信息"→"仍要运行"即可。</div>
-  </div>
-
-  <div class="card">
-    <h2>核心特性</h2>
-    <div class="feat">
-      <div><b>完全离线</b>通话不经过任何公网服务器，不依赖互联网</div>
-      <div><b>无服务器架构</b>每台电脑既是客户端也是服务端，无中心节点</div>
-      <div><b>无账号无统计</b>不注册、不登录、不上传任何数据</div>
-      <div><b>SAS 双方校验</b>首次配对双方屏幕比对 6 位校验码，防中间人</div>
-      <div><b>全程加密</b>X25519 配对、AES-256-GCM 信令、DTLS-SRTP 媒体</div>
-      <div><b>物理隔离适用</b>适用于物理隔离、内网与合规敏感环境</div>
-    </div>
-  </div>
-
-  <div class="card">
-    <h2>快速上手</h2>
-    <ol>
-      <li>两台电脑分别安装，记下各自的"本机 IP"（须在同一局域网）。</li>
-      <li>A 在"设备配对"输入 B 的 IP → 发起配对。</li>
-      <li>B 接受后，<b>双方屏幕各显示 6 位校验码</b>，当面/电话核对一致后各自点"确认"。</li>
-      <li>任一方输入对方 IP 发起通话，对方接听即建立双向音视频。</li>
-    </ol>
-  </div>
-
-  <div class="card">
-    <h2>适用场景</h2>
-    <ul>
-      <li><b>物理隔离环境</b>：内外网隔离、无法连接互联网的场所内部语音视频沟通。</li>
-      <li><b>企业内网</b>：办公内网、生产内网、分支机构局域网内的点对点通话。</li>
-      <li><b>合规敏感单位</b>：对数据不出内网、有通信留痕与自主可控要求的单位，可自行评估部署。</li>
-    </ul>
-    <p style="font-size:13px;color:#6b7280">以上为技术方案的适用性说明，不构成对特定行业资质、认证或采购结果的承诺。</p>
-  </div>
-
-  <div class="card">
-    <h2>安全说明</h2>
-    <ul>
-      <li>配对：X25519 ECDH + SAS 双方比对，防窃听与中间人。</li>
-      <li>信令全程 AES-256-GCM 加密（每连接、每方向独立密钥，防重放/反射）。</li>
-      <li>媒体：WebRTC DTLS-SRTP 标准加密；音视频不上传、不保存。</li>
-      <li>无账号、无统计、不修改防火墙（首次运行请在系统弹窗中手动放行）。</li>
-    </ul>
-    <p><a href="/offline-security.html">查看完整离线安全说明 →</a></p>
-  </div>
-
-  <div class="card">
-    <h2>技术支持</h2>
-    <p>使用问题与反馈请联系：<a href="mailto:support@haicechina.com">support@haicechina.com</a></p>
-    <p><a href="/support.html">常见问题与排查指南 →</a></p>
-  </div>
-
-  <div class="foot">
-    <div class="nav">
-      <a href="/">首页</a><a href="/offline-security.html">离线安全</a><a href="/air-gapped-solution.html">物理隔离方案</a><a href="/support.html">技术支持</a><a href="/about.html">关于</a>
-    </div>
-    上海海策信息技术有限公司 版权所有 © 2026<br>
-    技术支持：<a href="mailto:support@haicechina.com">support@haicechina.com</a>
+    <aside class="hero-side" aria-label="要点速览">
+      <h3>要点速览</h3>
+      <ul>
+        <li><b>完全离线</b> —— 通话只走局域网，不依赖互联网</li>
+        <li><b>端到端加密</b> —— X25519 密钥协商，通话全程加密</li>
+        <li><b>双方校验配对</b> —— 6 位校验码当面核对，防中间人</li>
+        <li><b>无账号无统计</b> —— 不注册、不上传、不留存音视频</li>
+      </ul>
+    </aside>
   </div>
 </div>
+
+<main class="wrap">
+
+<!-- 2. 真实截图 -->
+<section class="block" id="shots" aria-labelledby="shots-h">
+  <h2 id="shots-h">软件界面</h2>
+  <p class="lead">以下为 v0.2.4 测试版在测试环境中的真实界面截图（使用系统虚拟音视频设备，实际使用时显示真实设备名称）。</p>
+  <div class="shots">
+    <figure class="shot">
+      <img src="shots/shot-main.png" alt="LAN Call 主界面：本机信息、视频通话、音视频设备三块面板" loading="lazy">
+      <figcaption><b>主界面</b><span>本机 IP 与信令端口、对方 IP 输入、设备列表与麦克风电平一目了然。</span></figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="shots/shot-pairing.png" alt="LAN Call 配对确认：双方屏幕显示 6 位校验码，一致后各自确认" loading="lazy">
+      <figcaption><b>配对确认</b><span>双方屏幕各显示 6 位校验码，当面或电话核对一致后各自确认，防中间人。</span></figcaption>
+    </figure>
+    <figure class="shot">
+      <img src="shots/shot-call.png" alt="LAN Call 视频通话中：对方大画面、本地小画面，静音、关闭视频、挂断按钮" loading="lazy">
+      <figcaption><b>视频通话</b><span>一对一通话界面，支持静音、关闭视频、挂断。通话计时与状态实时显示。</span></figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- 3. 三步指南 -->
+<section class="block" id="guide" aria-labelledby="guide-h">
+  <h2 id="guide-h">三步开始使用</h2>
+  <p class="lead">两台电脑须在同一局域网（同一 Wi-Fi 或交换机），各安装一份 LAN Call。</p>
+  <div class="cards">
+    <div class="card">
+      <span class="step-no">1</span>
+      <h3>安装并运行</h3>
+      <p>在两台 Windows 10/11（64 位）电脑上分别安装并运行。首次运行 Windows 防火墙可能弹窗，请勾选"专用网络"并允许访问。</p>
+    </div>
+    <div class="card">
+      <span class="step-no">2</span>
+      <h3>安全配对</h3>
+      <p>一方输入对方 IP 发起配对。双方屏幕各显示 6 位校验码——当面或电话核对，一致后各自点"确认配对"。配对一次，长期有效。</p>
+    </div>
+    <div class="card">
+      <span class="step-no">3</span>
+      <h3>发起通话</h3>
+      <p>输入对方 IP 点"发起通话"，对方接听即建立一对一加密视频通话。支持静音、关闭视频；挂断即结束，不留存任何记录。</p>
+    </div>
+  </div>
+</section>
+
+<!-- 4. 核心特点 -->
+<section class="block" aria-labelledby="feat-h">
+  <h2 id="feat-h">核心特点</h2>
+  <div class="cards">
+    <div class="card"><h3>完全离线运行</h3><p>信令与媒体只走局域网，不依赖公网 STUN/TURN，不经过任何外部服务器。断开互联网后仍可通话。</p></div>
+    <div class="card"><h3>端到端加密</h3><p>配对采用 X25519 ECDH 密钥协商；每次通话派生独立会话密钥，AES-256-GCM 加密，防重放、防反射。</p></div>
+    <div class="card"><h3>无账号、无统计</h3><p>不注册账号，不收集、不上传、不保存任何音视频与通话记录。配对密钥只保存在本机。</p></div>
+  </div>
+</section>
+
+<!-- 5. 安全与隐私 -->
+<section class="block" id="security" aria-labelledby="sec-h">
+  <h2 id="sec-h">安全与隐私</h2>
+  <p class="lead">局域网通信默认不可信——LAN Call 按此原则设计。</p>
+  <div class="two-col">
+    <div class="panel">
+      <h3>加密与认证</h3>
+      <ul>
+        <li>配对：X25519 ECDH 临时密钥协商，双方屏幕比对 6 位 SAS 校验码，确认后互发绑定完整 transcript 的确认消息</li>
+        <li>通话：每次建连双向 nonce 认证，HKDF 派生双向独立会话密钥，AES-256-GCM 加密</li>
+        <li>防重放、防反射：帧序号严格递增并参与 AAD，方向标识校验，违例即断开并告警</li>
+        <li>长期密钥永不进入渲染进程；配对码为一次性显示，用后即清</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>暴露面与隐私</h3>
+      <ul>
+        <li>信令只监听局域网网卡地址，不监听公网，不做端口映射</li>
+        <li>未认证连接上限、握手超时、配对限流与冷却，服务端消息体上限 256KB</li>
+        <li>音视频不上传、不保存；程序不含任何统计、上报、广告模块</li>
+        <li>详见<a href="offline-security.html">离线安全说明</a>与<a href="air-gapped-solution.html">物理隔离部署方案</a>（部署前请结合本单位安全管理制度自行评估）</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 6. 下载与校验 -->
+<section class="block" id="download" aria-labelledby="dl-h">
+  <h2 id="dl-h">下载与完整性校验</h2>
+  <p class="lead">当前为测试版（v0.2.4）。<b>下载安装包需要联网</b>；安装完成后，软件运行完全离线。</p>
+  <div class="dl-box">
+    <div class="dl-row">
+      <a class="btn" href="https://github.com/MarchCao/lan-call/releases/download/v0.2.4/LAN-Call-Setup-0.2.4-win-x64.exe">下载 Windows 测试版 v0.2.4</a>
+      <a class="btn btn-outline" href="https://github.com/MarchCao/lan-call/releases/download/v0.2.4/lan-call-v0.2.4-src.tar.gz">下载源代码</a>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">安装包：LAN-Call-Setup-0.2.4-win-x64.exe · 136 MB · Windows 10/11 64 位</p>
+    <h3 style="font-size:16px;margin:20px 0 8px">SHA256 校验</h3>
+    <div class="dl-row">
+      <code class="hash" id="sha256">1c5926206dce64e44787f20839005939098306ef882449482224c02360dfeada</code>
+      <button class="copybtn" id="copySha" type="button">复制完整值</button>
+    </div>
+    <p style="font-size:14px;color:var(--muted)">Windows PowerShell 校验方法（在安装包所在目录运行）：</p>
+    <pre class="cmd">Get-FileHash .\LAN-Call-Setup-0.2.4-win-x64.exe -Algorithm SHA256</pre>
+    <p style="font-size:14px;color:var(--muted)">将输出与上方公布值逐字比对，完全一致再安装。</p>
+    <div class="note"><b>关于 SmartScreen 警告：</b>测试版暂无代码签名，Windows SmartScreen 会显示"未知发布者"警告。这是系统正常防护行为。请先用上方方法核对 SHA256，确认一致后再根据系统提示自行决定是否继续。</div>
+    <h3 style="font-size:16px;margin:20px 0 8px">测试版已知限制</h3>
+    <ul style="padding-left:20px;font-size:14.5px;color:var(--muted)">
+      <li>仅支持 Windows 10/11 64 位，且仅 Windows ↔ Windows 通话</li>
+      <li>两台电脑须在同一局域网；暂无自动发现，需手动输入对方 IP</li>
+      <li>摄像头同一时间只能被一个程序使用；麦克风/扬声器可在设备卡片中切换与测试</li>
+      <li>通话功能已在单机双开与真机环境验证；两台独立电脑、断网建连、长时间通话等场景仍在测试中</li>
+    </ul>
+  </div>
+</section>
+
+<!-- 7. FAQ -->
+<section class="block faq" id="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">常见问题</h2>
+  <div style="height:20px"></div>
+  <details>
+    <summary>提示"无法连接"（ECONNREFUSED）怎么办？</summary>
+    <p>确认对方软件已打开、IP 填写正确、两人连的是同一个 Wi-Fi/交换机；首次运行请在防火墙弹窗中勾选"专用网络"。注意软件只监听局域网网卡，不要填 127.0.0.1。</p>
+  </details>
+  <details>
+    <summary>双方 6 位校验码不一致？</summary>
+    <p>说明可能有人在中间篡改，请立即取消，不要继续。检查双方是否连入了同一个可信局域网，排除后再重新配对。</p>
+  </details>
+  <details>
+    <summary>对方听不到我的声音？</summary>
+    <p>先看主界面"麦克风电平"条：说话时若有跳动，说明麦克风工作，对方检查扬声器与音量；若无跳动，在"音视频设备"卡片中切换到正确的麦克风。</p>
+  </details>
+  <details>
+    <summary>断开互联网还能用吗？</summary>
+    <p>可以。软件只使用局域网，不依赖互联网（下载安装包时需要联网，安装后运行完全离线）。</p>
+  </details>
+  <p style="margin-top:16px;font-size:14.5px;color:var(--muted)">更多问题见<a href="support.html">技术支持</a>，或发邮件至 <a href="mailto:support@haicechina.com">support@haicechina.com</a>。</p>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fcol">
+      <h4>LAN Call</h4>
+      <ul>
+        <li><a href="#download">下载</a></li>
+        <li><a href="#guide">使用指南</a></li>
+        <li><a href="#security">安全与隐私</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>支持</h4>
+      <ul>
+        <li><a href="support.html">技术支持</a></li>
+        <li><a href="offline-security.html">离线安全说明</a></li>
+        <li><a href="air-gapped-solution.html">物理隔离部署方案</a></li>
+        <li><a href="about.html">关于</a></li>
+      </ul>
+    </div>
+    <div class="fcol">
+      <h4>联系</h4>
+      <ul>
+        <li><a href="mailto:support@haicechina.com">support@haicechina.com</a></li>
+      </ul>
+    </div>
+    <p class="copyright">上海海策信息技术有限公司 版权所有 © 2026 · 当前为测试版，功能与文案以实际发布为准</p>
+  </div>
+</footer>
+
 <script>
-document.getElementById('sha').addEventListener('click', function(){
-  var t = this.textContent.trim();
-  if (navigator.clipboard) navigator.clipboard.writeText(t);
-  this.title = '已复制';
-  setTimeout(()=>{ this.title='点击复制'; }, 1500);
+document.getElementById('copySha').addEventListener('click', function () {
+  var t = document.getElementById('sha256').textContent.trim();
+  var done = function () {
+    var b = document.getElementById('copySha');
+    b.textContent = '已复制';
+    setTimeout(function () { b.textContent = '复制完整值'; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(t).then(done, function () { fallback(); });
+  } else { fallback(); }
+  function fallback() {
+    var ta = document.createElement('textarea');
+    ta.value = t; document.body.appendChild(ta); ta.select();
+    try { document.execCommand('copy'); } catch (e) {}
+    document.body.removeChild(ta); done();
+  }
 });
 </script>
 </body>
