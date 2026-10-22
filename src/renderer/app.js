@@ -92,13 +92,23 @@ function bindButtons() {
     } catch (e) { toast(e.message); }
   };
 
+  // 解析 "IP" 或 "IP:端口"（单机双实例时用 127.0.0.1:48218）
+  function parseIpPort(s) {
+    const m = s.match(/^(.*?):(\d{1,5})$/);
+    if (m) {
+      const p = parseInt(m[2], 10);
+      if (p > 0 && p < 65536 && m[1]) return { ip: m[1], port: p };
+    }
+    // window.__testPeerPort 仅 e2e 测试使用（同机双实例），生产环境为 undefined
+    return { ip: s, port: window.__testPeerPort };
+  }
+
   $('pairBtn').onclick = async () => {
-    const ip = $('pairIp').value.trim();
+    const { ip, port } = parseIpPort($('pairIp').value.trim());
     if (!ip) return toast('请先输入对方 IP');
     try {
       setStatus('正在发起配对…');
-      // window.__testPeerPort 仅 e2e 测试使用（同机双实例），生产环境为 undefined
-      await invoke('pair', ip, window.__testPeerPort);
+      await invoke('pair', ip, port);
     } catch (e) { toast(`配对失败：${e.message}`); setStatus('空闲'); }
   };
 
@@ -127,18 +137,19 @@ function bindButtons() {
   };
 
   $('callBtn').onclick = async () => {
-    const ip = $('callIp').value.trim();
+    const raw = $('callIp').value.trim();
+    const { ip, port } = parseIpPort(raw);
     if (!ip) return toast('请先输入对方 IP');
     if (callState !== 'idle') return toast('当前有通话正在进行');
     try {
       setStatus('正在打开摄像头/麦克风…');
       const local = await media.ensureLocalStream();
       $('localVideo').srcObject = local;
-      setStatus(`正在呼叫 ${ip}…`);
+      setStatus(`正在呼叫 ${raw}…`);
       callState = 'dialing';
       $('callControls').classList.remove('hidden');
       const offerSdp = await media.makeOffer();
-      await invoke('call', ip, offerSdp, window.__testPeerPort);
+      await invoke('call', ip, offerSdp, port);
       wireMediaCallbacks();
     } catch (e) {
       endUiCall();
